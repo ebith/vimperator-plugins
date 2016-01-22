@@ -1,0 +1,41 @@
+diff --git copy.js copy.js
+index 18b61f5..d37ef7b 100644
+--- copy.js
++++ copy.js
+@@ -139,9 +139,35 @@ copy_templates.forEach(function(template){
+         addUserMap(template.label, template.map);
+ });
+ 
++var copy_filter = liberator.globalVariables.copy_filter || {
++  youtube: {
++    url: /www\.youtube\.com/,
++    modifier: function() {
++      Array.prototype.forEach.call(content.document.getElementsByTagName('link'), function(link){
++          if (/shortlink/.test(link.rel)) { url = link.href; }
++      });
++      return url;
++    }
++  },
++  'amazon.jp': {
++    url: /www\.amazon\.co\.jp/,
++    modifier: function() {
++      return 'http://amazon.jp/dp/' + content.document.getElementById('ASIN').value;
++    }
++  }
++}
++
+ const REPLACE_TABLE = {
+     get TITLE () buffer.title,
+-    get URL () buffer.URL,
++    get URL () {
++        var url = buffer.URL;
++        for (var key in copy_filter){
++            if (copy_filter[key].url.test(url)){
++                url = copy_filter[key].modifier();
++            }
++        }
++        return url;
++    },
+     get SEL () {
+         var sel = '';
+         var win = new XPCNativeWrapper(window.content.window);

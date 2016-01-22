@@ -1,0 +1,127 @@
+[v-cloak] { display: none; }
+
+body {
+  color: #333333;
+  margin: 0 2px;
+  padding: 0;
+}
+
+.tweet {
+  padding: 0 3px;
+}
+
+a {
+  color: orangered;
+  text-decoration: none;
+}
+
+.content {
+  margin-left: 53px;
+}
+
+.my {
+  background-color: mistyrose;
+  border-radius: 5px;
+}
+
+.fav, .listed, .follow {
+  background-color: mistyrose;
+  border-radius: 5px;
+}
+
+.filter {
+  background-color: honeydew;
+  border-radius: 5px;
+}
+
+.account, .permalink {
+  color: #333333;
+  text-decoration: none;
+}
+
+.avatar {
+  border-radius: 5px;
+  margin-top: 3px;
+  margin-left: -53px;
+  float: left;
+}
+
+.name {
+  font-weight: bold;
+}
+
+.info {
+  font-size: 12px;
+  float: right;
+}
+
+div.retweet .info:before {
+  content: '\f079';
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+div.quote .info:before {
+  content: '\f10d';
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin-right: 1px;
+}
+
+div.protected .name:after {
+  content: '\f023';
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin-left: 2px;
+}
+
+p.text {
+  word-wrap: break-word;
+  margin: -3px 0 0 0;
+}
+
+p.tooLong {
+  font-size: 13px;
+}
+
+p.long {
+  font-size: 14px;
+}
+
+p.middle {
+  font-size: 15px;
+}
+
+p.short {
+  font-size: 17px;
+}
+
+p.tooShort {
+  font-size: 19px
+}
+
+.clearfix:after {
+  content: '';
+  clear: both;
+  display: block;
+}
+
+@font-face {
+  font-family: 'FontAwesome';
+  src: url('./fonta/fonts/fontawesome-webfont.eot?v=4.5.0');
+  src: url('./fonta/fonts/fontawesome-webfont.eot?#iefix&v=4.5.0') format('embedded-opentype'), url('./fonta/fonts/fontawesome-webfont.woff2?v=4.5.0') format('woff2'), url('./fonta/fonts/fontawesome-webfont.woff?v=4.5.0') format('woff'), url('./fonta/fonts/fontawesome-webfont.ttf?v=4.5.0') format('truetype'), url('./fonta/fonts/fontawesome-webfont.svg?v=4.5.0#fontawesomeregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
