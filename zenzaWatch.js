@@ -80,10 +80,9 @@
       if (args.length === 0) {
         let match = /http:\/\/www\.nicovideo\.jp\/watch\/([a-z]{2}\d+|\d+)/.exec(buffer.URL);
         if (match) {
-          // if (TreeStyleTabService) { TreeStyleTabService.stopToOpenChildTab(gBrowser.selectedTab); }
           let selectedTab = gBrowser.selectedTab;
           commands.get('zenzaWatch').execute(`open ${match[1]}`);
-          gBrowser.removeTab();
+          gBrowser.removeTab(selectedTab);
         }
       } else {
         let zwTab;
