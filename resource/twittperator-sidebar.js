@@ -32,7 +32,9 @@ window.addEventListener('load', () => {
       usernameIncludeSymbol: true,
       targetBlank: true,
     };
-    tweet.linkedHtml = twemoji.parse(twttr.txt.autoLink(tweet.text, options));
+    var escaped = _.escape(tweet.text);
+    var autoLinked = twttr.txt.autoLink(escaped, options);
+    tweet.linkedHtml = twemoji.parse(autoLinked);
 
     var div = document.createElement('div');
     div.innerHTML = tweet.linkedHtml;
