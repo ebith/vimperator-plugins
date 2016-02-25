@@ -1,7 +1,7 @@
 // Original: vimperator-plugins/twsidebar.tw at master · vimpr/vimperator-plugins - https://github.com/vimpr/vimperator-plugins/blob/master/twittperator/twsidebar.tw
 (()=>{
   const config = liberator.globalVariables.twittperator_sidebar || {
-    resourceDir: io.expandPath('~/.vimperator/ebith/resource'),
+    resourceDir: io.expandPath('~/.vimperator/ebith/resources'),
     screenName: 'ebith',
     myNames: /ebith|えびさん|エビさん/,
     vanish: /#sinkan/,
@@ -12,15 +12,16 @@
 
   const {require} = Cu.import('resource://gre/modules/commonjs/toolkit/require.js', {});
   const {FileUtils} = Cu.import("resource://gre/modules/FileUtils.jsm", {});
+  const uuid = require('sdk/util/uuid').uuid();
 
   let file = new FileUtils.File(config.resourceDir);
   let resourceDirUri = Services.io.newFileURI(file);
-  Services.io.getProtocolHandler('resource').QueryInterface(Ci.nsIResProtocolHandler).setSubstitution('ebith', resourceDirUri);
+  Services.io.getProtocolHandler('resource').QueryInterface(Ci.nsIResProtocolHandler).setSubstitution(uuid, resourceDirUri);
 
   let sidebar = require('sdk/ui/sidebar').Sidebar({
     id: 'twittperator-sidebar',
     title: 'Twittperator Sidebar',
-    url: `resource://ebith/twittperator-sidebar.html`,
+    url: `resource://${uuid}/twittperator-sidebar.html`,
     onAttach: (worker) => {
       document.getElementById('sidebar').contentDocument.getElementById('web-panels-browser').addEventListener('DOMWindowCreated', (event) => {
         let htmlDocument = event.explicitOriginalTarget;
