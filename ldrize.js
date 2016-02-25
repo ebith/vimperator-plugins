@@ -265,6 +265,7 @@ Require:
         } else if (tab.__ldrize.commands[args[0]]) {
           return tab.__ldrize.commands[args[0]](tab.__ldrize.getCurrentItem());
         }
+        tab.__ldrize.next();
       }), new Command(['next'], '', function(args) {
         return window.gBrowser.mTabContainer.childNodes[gBrowser.mTabContainer.selectedIndex].__ldrize.next();
       }), new Command(['prev'], '', function(args) {
