@@ -100,7 +100,7 @@
 
     hatebu.count = {};
     statusline.addField('hbcount', 'はてブ数', 'liberator-status-hbcount', (node, url) => {
-      if (url) {
+      if (!hatebu.count[url] && /^https?:\/\//.test(url)) {
         fetch(`https://b.st-hatena.com/entry.count?url=${encodeURIComponent(url)}`).then(response => {
           if (response.ok) {
             response.text().then(count => {
@@ -118,7 +118,7 @@
 
     let webProgressListener = {
       onLocationChange: (browser, webProgress, request, location, flags) => {
-        if (request) {
+        if (browser.currentURI.spec === location.spec && webProgress.isLoadingDocument) {
           statusline.updateField('hbcount', location.spec);
         }
       }
@@ -126,7 +126,7 @@
     gBrowser.addTabsProgressListener(webProgressListener);
 
     let onTabSelect = () => {
-        statusline.updateField('hbcount', null);
+      statusline.updateField('hbcount', null);
     }
     gBrowser.tabContainer.addEventListener('TabSelect', onTabSelect);
 
