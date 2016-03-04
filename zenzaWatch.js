@@ -30,7 +30,7 @@
         panel.getElementsByClassName('tabSelectContainer')[0].style.display = 'block';
       } else {
         panel.style.left = '0px';
-        panel.style.width = '100%';
+        panel.style.width = 'calc(100% + 320px)';
         panel.getElementsByClassName('videoOwnerInfoContainer')[0].style.display = 'none';
         panel.getElementsByClassName('tabSelectContainer')[0].style.display = 'none';
       }
