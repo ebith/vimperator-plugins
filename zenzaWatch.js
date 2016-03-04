@@ -15,8 +15,9 @@
     }, {
       completer: (context, args) => {
         context.compare = CompletionContext.Sort.unsorted;
+        context.title = ['Url', 'Description'];
         let links = zwBrowser.contentDocument.getElementsByClassName('videoDescription')[0].getElementsByTagName('a');
-        context.completions = [for (link of links) [link.href, '']];
+        context.completions = [for (link of links) [link.href, link.previousSibling.textContent]];
       }
     }, true),
     new Command(['zoomDescription'], '動画の説明を拡大する(トグル)', (args) => {
