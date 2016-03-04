@@ -45,7 +45,7 @@
         [['-u', '-url'], liberator.modules.commands.OPTION_STRING],
         [['-t', '-twitter'], liberator.modules.commands.OPTION_NOARG],
       ],
-      completer: liberator.modules.plugins.hatenaBookmarkCompleter.completer,
+      completer: liberator.plugins.hatenaBookmarkCompleter.completer,
     }, true),
   ];
 

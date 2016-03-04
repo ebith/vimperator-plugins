@@ -68,11 +68,11 @@ Require:
 
   USE_INTELLIGENCE_SCROLL = false;
 
-  $U = plugins.libly.$U;
+  $U = liberator.plugins.libly.$U;
 
-  scrollBy = plugins.smoothScroll.scrollBy;
+  scrollBy = liberator.plugins.smoothScroll.scrollBy;
 
-  scrollTo = plugins.smoothScroll.scrollTop;
+  scrollTo = liberator.plugins.smoothScroll.scrollTop;
 
   ldrize = function(tab) {
     var command, currentIndex, doc, getCurrentItem, getNextIndex, getPageHeight, initParagraphs, isAvailable, isScroll, map, maps, next, node, openCurrentLink, paragraphs, prev, prevPageHeight, scrollHeight, siteinfo, siteinfos, spacer, useIntelligence, win, _ref, _ref1;
