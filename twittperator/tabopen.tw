@@ -1,0 +1,17 @@
+(()=>{
+  const TW = liberator.plugins.twittperator;
+
+  TW.SubCommands.add(
+    TW.SubCommand({
+      command: ['os'],
+      description: 'Open status',
+      action: function(arg) {
+        liberator.open(`https://twitter.com/statuses/${arg}`, liberator.NEW_TAB);
+      },
+      timelineComplete: true,
+      completer: TW.Completers.id(function(s) s.id)
+    })
+  );
+})();
+
+// vim: ft=javascript
