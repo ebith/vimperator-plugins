@@ -17,7 +17,15 @@
         context.compare = CompletionContext.Sort.unsorted;
         context.title = ['Url', 'Description'];
         let links = zwBrowser.contentDocument.getElementsByClassName('videoDescription')[0].getElementsByTagName('a');
-        context.completions = [for (link of links) [link.href, link.previousSibling.textContent]];
+        let completions = [];
+        for (let link of links) {
+          if (link.href && link.previousSibling) {
+            completions.push([link.href, link.previousSibling.textContent]);
+          } else if (link.href) {
+            completions.push([link.href, link.parentNode.parentNode.parentNode.previousSibling.textContent]);
+          }
+        }
+        context.completions = completions;
       }
     }, true),
     new Command(['zoomDescription'], '動画の説明を拡大する(トグル)', (args) => {
