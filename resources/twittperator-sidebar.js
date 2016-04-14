@@ -32,7 +32,7 @@ window.addEventListener('load', () => {
       usernameIncludeSymbol: true,
       targetBlank: true,
     };
-    var escaped = _.escape(tweet.text).replace(/&amp;amp;/, '&amp;');
+    var escaped = _.escape(tweet.text).replace(/&amp;amp;/g, '&amp;');
     var autoLinked = twttr.txt.autoLink(escaped, options);
     tweet.linkedHtml = twemoji.parse(autoLinked);
 
