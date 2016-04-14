@@ -29,11 +29,7 @@
           init(htmlDocument);
         });
         htmlDocument.addEventListener('log', (obj) => {
-          if (typeof obj.detail === 'object') {
-            liberator.log(`\n${objectToString(obj.detail)}`);
-          } else {
-            liberator.log(obj.detail);
-          }
+          liberator.plugins.ebith.log(obj.detail);
         });
       });
     },
