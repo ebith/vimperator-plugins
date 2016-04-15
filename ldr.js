@@ -64,7 +64,7 @@
       var item;
       item = w().get_active_item(true);
       liberator.plugins.readitlater.API.add(unescapeEntities(item.link), item.title, function() {
-        return liberator.echo("[readitlater] added: " + item.title + " - " + item.link);
+        return liberator.echo("[readitlater] Added: " + item.title + " - " + item.link);
       });
       return w().Control.go_next();
     }), new Command('incrementrate', '', function(args) {

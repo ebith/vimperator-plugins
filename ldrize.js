@@ -17,7 +17,7 @@ Require:
     commands: {
       readItLater: (currentItem) => {
         liberator.plugins.readitlater.API.add(currentItem.href, currentItem.textContent, () => {
-          liberator.echo('ril added');
+          liberator.echo(`[readitlater] Added: ${currentItem.textContent}`);
         });
       }
     },
