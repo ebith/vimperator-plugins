@@ -11,7 +11,7 @@
   };
 
   const {require} = Cu.import('resource://gre/modules/commonjs/toolkit/require.js', {});
-  const {FileUtils} = Cu.import("resource://gre/modules/FileUtils.jsm", {});
+  const {FileUtils} = Cu.import('resource://gre/modules/FileUtils.jsm', {});
   const uuid = require('sdk/util/uuid').uuid();
 
   let file = new FileUtils.File(config.resourceDir);
@@ -65,7 +65,7 @@
                 (msg.event === 'list_member_added' && msg.target.screen_name == config.screenName)
             ))
 
-    let jp =  new RegExp("[\\u4e00-\\u9fa0\\u30A1-\\u30F6\\u30FC\\u3042-\\u3093\\u3001\\u3002\\uFF01\\uFF1F]");
+    let jp =  new RegExp('[\\u4e00-\\u9fa0\\u30A1-\\u30F6\\u30FC\\u3042-\\u3093\\u3001\\u3002\\uFF01\\uFF1F]');
     if (!my && streamName === 'filter' && msg.text && config.jpOnly && !jp.test(msg.text)) { return false; }
 
     if (msg.event) {
