@@ -4,6 +4,39 @@
   let zwBrowser;
   let subCommands = [
     // new Command([''], '', (args) => {}, {}, true),
+    new Command(['addNGUser'], '表示中のコメントからNGユーザを追加する', (args) => {
+      let chatList = zw().debug.nicoCommentPlayer.getChatList();
+      for (let chat of chatList.top.concat(chatList.naka, chatList.bottom)) {
+        if (chat._id === args[0]) {
+          zw().debug.nicoCommentPlayer.addUserIdFilter(chat._userId);
+        }
+      }
+    }, {
+      completer: (context, args) => {
+        context.compare = CompletionContext.Sort.unsorted;
+        context.title = ['chatID', 'Comment'];
+        let comments = zw().debug.getInViewElements();
+        let completions = [];
+        for (let comment of comments) {
+          completions.push([comment.id, JSON.parse(comment.dataset.meta).text]);
+        }
+        context.completions = completions;
+      }
+    }, true),
+    new Command(['selectTab'], 'タブを選ぶ', (args) => {
+      zwBrowser.contentDocument.getElementsByClassName(`tabSelect ${args[0]}`)[0].click();
+    }, {
+      completer: (context, args) => {
+        context.compare = CompletionContext.Sort.unsorted;
+        context.title = ['Class', 'Title'];
+        let tabs = zwBrowser.contentDocument.getElementsByClassName('tabSelect');
+        let completions = [];
+        for (let tab of tabs) {
+          completions.push([tab.classList[1], tab.textContent]);
+        }
+        context.completions = completions;
+      }
+    }, true),
     new Command(['relations'], '動画説明文からリンクを開く', (args) => {
       let match = /http:\/\/www\.nicovideo\.jp\/watch\/([a-z]{2}\d+|\d+)/.exec(args[0]);
       if (match) {
