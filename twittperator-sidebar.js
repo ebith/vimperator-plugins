@@ -199,13 +199,13 @@
     }
   }
 
-  plugins.twittperator.ChirpUserStream.addListener(added.chirp = makeOnMsg('chirp'));
-  plugins.twittperator.TrackingStream.addListener(added.filter = makeOnMsg('filter'));
+  liberator.plugins.twittperator.ChirpUserStream.addListener(added.chirp = makeOnMsg('chirp'));
+  liberator.plugins.twittperator.TrackingStream.addListener(added.filter = makeOnMsg('filter'));
 
   __context__.onUnload = () => {
     sidebar.hide();
     sidebar.dispose();
-    plugins.twittperator.ChirpUserStream.removeListener(added.chirp);
-    plugins.twittperator.TrackingStream.removeListener(added.filter);
+    liberator.plugins.twittperator.ChirpUserStream.removeListener(added.chirp);
+    liberator.plugins.twittperator.TrackingStream.removeListener(added.filter);
   };
 })();
