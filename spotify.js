@@ -15,8 +15,32 @@
       stop: () => { spotify.send(851968); },
       vup: () => { spotify.send(655360); },
       vdown: () => { spotify.send(589824); },
-    }
+    };
   } else if ('MacUnix') {
+    const {require} = Cu.import('resource://gre/modules/commonjs/toolkit/require.js', {});
+    const child_process = require('sdk/system/child_process');
+    spotify = {
+      run: (command, callback) => {
+        child_process.exec(`osascript -e 'tell application "Spotify" to ${command}'`, (error, stdout, stderr) => {
+          callback(stdout);
+        });
+      },
+      play: () => { spotify.run('playpause'); },
+      mute: () => {
+        spotify.run('output muted of (get volume settings)', (isMuted) => {
+          if (isMuted === 'true\n') {
+            spotify.run('set volume without output muted');
+          } else {
+            spotify.run('set volume with output muted');
+          }
+        });
+      },
+      next: () => { spotify.run('next track'); },
+      prev: () => { spotify.run('previous track'); },
+      stop: () => { spotify.run('pause'); },
+      vup: () => { spotify.run('set sound volume to (sound volume + 10)'); },
+      vdown: () => { spotify.run('set sound volume to (sound volume - 10)'); },
+    };
   }
 
   const subCommands = [

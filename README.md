@@ -1,5 +1,9 @@
 vimperator-plugins
 ==================
+### spotify.js
+Spotifyのデスクトップアプリを操作する。  
+Win, Mac対応
+
 ### hatena-bookmark.js
 [公式のアドオン](https://addons.mozilla.org/ja/firefox/addon/hatena-bookmark/)の投稿オプションに対応した[direct\_bookmark.js](https://github.com/vimpr/vimperator-plugins/blob/master/direct_bookmark.js)という感じのやつ。  
 ステータスラインにはてブ数を表示する機能もある。  
