@@ -20,6 +20,17 @@
     const {require} = Cu.import('resource://gre/modules/commonjs/toolkit/require.js', {});
     const child_process = require('sdk/system/child_process');
     spotify = {
+      nowPlaying: (context, args) => {
+        if (!context || !context.anchored) { return; }
+        context.title = ['Title', 'Artist'];
+        context.incomplete = true;
+        spotify.run('name of current track', (title) => {
+          spotify.run('artist of current track', (artist) => {
+            context.incomplete = false;
+            context.completions = [[title, artist]];
+          });
+        });
+      },
       run: (command, callback) => {
         child_process.exec(`osascript -e 'tell application "Spotify" to ${command}'`, (error, stdout, stderr) => {
           callback(stdout);
@@ -53,8 +64,9 @@
     ['s[top]', 'Stop playing'],
     ['vu[p]', 'Volume Up'],
     ['vd[own]', 'Volume Down'],
-  ].map(([command, description]) => {
-    return new Command(command, description, (args) => { spotify[command.replace(/[\[\]]/g, '')](); }, {}, true);
+    ['n[owPlaying]', 'Display current track (title - artist)', spotify.nowPlaying],
+  ].map(([command, description, completer]) => {
+    return new Command(command, description, (args) => { spotify[command.replace(/[\[\]]/g, '')](); }, { completer: completer }, true);
   });
 
   commands.addUserCommand(['spotify'], 'Controll spotify app', (args) => {
