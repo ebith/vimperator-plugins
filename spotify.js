@@ -27,11 +27,12 @@
       },
       play: () => { spotify.run('playpause'); },
       mute: () => {
-        spotify.run('output muted of (get volume settings)', (isMuted) => {
-          if (isMuted === 'true\n') {
-            spotify.run('set volume without output muted');
+        spotify.run('sound volume', (volume) => {
+          if (volume === '0\n') {
+            spotify.run(`set sound volume to ${spotify.volume}`);
           } else {
-            spotify.run('set volume with output muted');
+            spotify.volume = volume;
+            spotify.run('set sound volume to 0');
           }
         });
       },
@@ -41,6 +42,7 @@
       vup: () => { spotify.run('set sound volume to (sound volume + 10)'); },
       vdown: () => { spotify.run('set sound volume to (sound volume - 10)'); },
     };
+    spotify.run('sound volume', (volume) => { spotify.volume = volume; });
   }
 
   const subCommands = [
