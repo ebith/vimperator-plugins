@@ -12,6 +12,6 @@
     let match_result = context.filter.match(/((?:\[[^\]]*\])*)\[?(.*)/); //[all, commited, now inputting]
     let m = new RegExp(XMigemoCore ? '^(' + XMigemoCore.getRegExp(match_result[2]) + ')' : '^' + match_result[2],'i');
     context.advance(match_result[1].length);
-    context.completions = [for (tag of liberator.modules.plugins.hatenaBookmark.tags) if (m.test(tag) && !args.literalArg.includes(`[${tag}]`)) [`[${tag}]`, 'Tag']];
+    context.completions = [for (tag of liberator.plugins.hatenaBookmark.tags) if (m.test(tag) && !args.literalArg.includes(`[${tag}]`)) [`[${tag}]`, 'Tag']];
   }
 })();
