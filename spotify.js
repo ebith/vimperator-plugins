@@ -5,9 +5,17 @@
     const user32 = ctypes.open('user32.dll');
     const findWindow = user32.declare('FindWindowW', ctypes.winapi_abi, ctypes.int32_t, ctypes.jschar.ptr, ctypes.jschar.ptr);
     const sendMessage = user32.declare('SendMessageW', ctypes.winapi_abi, ctypes.int32_t, ctypes.int32_t, ctypes.uint32_t, ctypes.int32_t, ctypes.int32_t);
+    const getWindowText = user32.declare('GetWindowTextW', ctypes.winapi_abi, ctypes.int32_t, ctypes.uint32_t, ctypes.jschar.ptr, ctypes.int32_t);
     spotify = {
-      window: findWindow('SpotifyMainWindow', null),
-      send: (command) => { sendMessage(spotify.window, 0x0319, 0, command);},
+      nowPlaying: (context, args) => {
+        if (!context || !context.anchored) { return; }
+        context.title = ['Title', 'Artist'];
+        let buffer = new ctypes.ArrayType(ctypes.jschar)(256);
+        getWindowText(spotify.window(), buffer, buffer.length);
+        context.completions = [buffer.readString().split(' - ').reverse()];
+      },
+      window: () => { return findWindow('SpotifyMainWindow', null); },
+      send: (command) => { sendMessage(spotify.window(), 0x0319, 0, command);},
       play: () => { spotify.send(917504); },
       mute: () => { spotify.send(524288); },
       next: () => { spotify.send(720896); },
@@ -64,7 +72,7 @@
     ['s[top]', 'Stop playing'],
     ['vu[p]', 'Volume Up'],
     ['vd[own]', 'Volume Down'],
-    ['n[owPlaying]', 'Display current track (title - artist)', spotify.nowPlaying],
+    ['n[owPlaying]', 'Display current track (title, artist)', spotify.nowPlaying],
   ].map(([command, description, completer]) => {
     return new Command(command, description, (args) => { spotify[command.replace(/[\[\]]/g, '')](); }, { completer: completer }, true);
   });
