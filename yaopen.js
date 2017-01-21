@@ -44,7 +44,7 @@
   commands.addUserCommand(['yaopen'], 'Yet another :tabopen', function(args) {
     var url;
     if (sites[args[0]]) {
-      url = sites[args[0]].url.replace(/%ARG%/, encodeURIComponent(args[1]));
+      url = sites[args[0]].url.replace(/%ARG%/, args[1] ? encodeURIComponent(args[1]) : '');
       return liberator.open(url, liberator.NEW_TAB);
     } else {
       return liberator.echoerr("yaopen: " + args[0] + " is undefined");
