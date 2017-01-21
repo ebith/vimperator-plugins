@@ -3,6 +3,7 @@
 <head>
   <meta charset='utf-8'>
   <link rel='stylesheet' href='./twittperator-sidebar.css'>
+  <link rel='stylesheet' href='./fonta/css/font-awesome.min.css'>
   <script src='./vue.min.js'></script>
   <script src='./twitter-text-1.13.0.min.js'></script>
   <script src='./twemoji.min.js'></script>
@@ -23,9 +24,11 @@
         </a>
       </div>
       <p class='text {{ tweet.length }}'>{{{ tweet.linkedHtml }}}</p>
-      <div v-for='entity in tweet.media'>
-        <a href='{{ entity.expanded_url }}' target='_blank'>
-          <img src='{{ entity.media_url_https }}:thumb'>
+      <div v-if='tweet.media'>
+        <i v-if='tweet.media[0].type === "video" || tweet.media[0].type === "animated_gif"' class='fa fa-play-circle fa-2x note'></i>
+        <i v-if='(tweet.media[0].type === "photo") && (tweet.media.length > 1)' class='fa fa-clone fa-2x note'></i>
+        <a href='{{ tweet.media[0].expanded_url }}' target='_blank'>
+          <img src='{{ tweet.media[0].media_url_https }}:thumb' class='{{ tweet.media[0].type }}' v-on:mouseover='popMedia(tweet.media);'>
         </a>
       </div>
       <div class='clearfix'></div>

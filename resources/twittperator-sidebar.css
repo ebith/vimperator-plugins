@@ -1,3 +1,8 @@
+i.note {
+  margin-left: -35px;
+  float: left;
+}
+
 [v-cloak] { display: none; }
 
 img.emoji {
@@ -123,12 +128,4 @@ p.tooShort {
   content: '';
   clear: both;
   display: block;
-}
-
-@font-face {
-  font-family: 'FontAwesome';
-  src: url('./fonta/fonts/fontawesome-webfont.eot?v=4.5.0');
-  src: url('./fonta/fonts/fontawesome-webfont.eot?#iefix&v=4.5.0') format('embedded-opentype'), url('./fonta/fonts/fontawesome-webfont.woff2?v=4.5.0') format('woff2'), url('./fonta/fonts/fontawesome-webfont.woff?v=4.5.0') format('woff'), url('./fonta/fonts/fontawesome-webfont.ttf?v=4.5.0') format('truetype'), url('./fonta/fonts/fontawesome-webfont.svg?v=4.5.0#fontawesomeregular') format('svg');
-  font-weight: normal;
-  font-style: normal;
 }

@@ -18,7 +18,7 @@
   let resourceDirUri = Services.io.newFileURI(file);
   Services.io.getProtocolHandler('resource').QueryInterface(Ci.nsIResProtocolHandler).setSubstitution(uuid, resourceDirUri);
 
-  let sidebar = require('sdk/ui/sidebar').Sidebar({
+  const sidebar = require('sdk/ui/sidebar').Sidebar({
     id: 'twittperator-sidebar',
     title: 'Twittperator Sidebar',
     url: `resource://${uuid}/twittperator-sidebar.html`,
@@ -147,20 +147,20 @@
       ].join(' ');
 
       if (msg.entities.media) {
-        tweet.media = flattenEntities({media: msg.entities.media});
+        tweet.media = flattenEntities({media: msg.extended_entities.media});
       }
 
       tweet.id = msg.id;
 
       return tweet;
     } else {
+      liberator.plugins.ebith.log(msg);
       return false;
     }
 
     function flattenEntities(...args) {
       let flattened = [];
       for (let entities of args) {
-        // for-of使うとentities[Symbol.iterator] is not a function
         for (let k in entities) {
           for (let i in entities[k]) {
             flattened.push(entities[k][i]);
