@@ -28,7 +28,7 @@ Require:
       {
         name: 'ニコニコ動画 ランキング',
         domain: '^http://(?:(?:de|tw|es|www)\\.nicovideo\\.jp|video\\.niconico\\.com)/ranking',
-        paragraph: '//li[@class="item videoRanking "]',
+        paragraph: '//li[contains(@class, "videoRanking")]',
         link: './/a[contains(@href, \"watch/\")][text()]',
         height: -10,
         commands: {
@@ -255,7 +255,10 @@ Require:
 
   commands.addUserCommand(['ldrize'], 'LDRize的な何かを提供する', function(args) {}, {
     subCommands: [
-      new Command(['yank'], '', function(args) {
+      new Command(['rerun'], '', function(args) {
+        var tab = window.gBrowser.mTabContainer.childNodes[gBrowser.mTabContainer.selectedIndex];
+        tab.__ldrize = ldrize(tab);
+      }), new Command(['yank'], '', function(args) {
         return util.copyToClipboard(window.gBrowser.mTabContainer.childNodes[gBrowser.mTabContainer.selectedIndex].__ldrize.getCurrentItem().href);
       }), new Command(['command'], '', function(args) {
         var tab;

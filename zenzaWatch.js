@@ -1,9 +1,19 @@
 (() => {
-  let zwUrl = 'http://www.nicovideo.jp/my#ZenzaWatch';
+  let zwUrl = 'https://www.nicovideo.jp/my#ZenzaWatch';
   let zw = () => { return zwBrowser.contentWindow.wrappedJSObject.ZenzaWatch; };
   let zwBrowser;
   let subCommands = [
     // new Command([''], '', (args) => {}, {}, true),
+    new Command(['zoomVideo'], '画面モードのWIDEと大を切り替える', (args) => {
+      switch(zw().debug.nicoVideoPlayer._playerState.screenMode) {
+        case 'big':
+          zw().external.execCommand('screenMode', 'wide');
+          break;
+        case 'wide':
+          zw().external.execCommand('screenMode', 'big');
+          break;
+      }
+    }, {}, true),
     new Command(['addNGUser'], '表示中のコメントからNGユーザを追加する', (args) => {
       let chatList = zw().debug.nicoCommentPlayer.getChatList();
       for (let chat of chatList.top.concat(chatList.naka, chatList.bottom)) {
@@ -38,7 +48,7 @@
       }
     }, true),
     new Command(['relations'], '動画説明文からリンクを開く', (args) => {
-      let match = /http:\/\/www\.nicovideo\.jp\/watch\/([a-z]{2}\d+|\d+)/.exec(args[0]);
+      let match = /https?:\/\/www\.nicovideo\.jp\/watch\/([a-z]{2}\d+|\d+)/.exec(args[0]);
       if (match) {
         commands.get('zenzaWatch').execute(`open ${match[1]}`);
       } else {
@@ -78,8 +88,8 @@
     }, {}, true),
     new Command(['executeCommand', 'exec'], 'Vimperatorのコマンドを実行する', (args) => {
       let table = {
-        '%TITLE%': () => { return zw().debug.dialog._videoInfo.getTitle(); },
-        '%URL%': () => { return `http://www.nicovideo.jp/watch/${zw().debug.dialog._watchId}`; },
+        '%TITLE%': () => { return zw().debug.dialog._videoInfo._videoDetail.title; },
+        '%URL%': () => { return `https?://www.nicovideo.jp/watch/${zw().debug.dialog._watchId }`; },
         '%VIDEO_ID%': () => { return zw().debug.dialog._watchId; }
       };
       let arg = args.literalArg;
@@ -120,7 +130,7 @@
     }, {}, true),
     new Command(['open'], '', (args) => {
       if (args.length === 0) {
-        let match = /http:\/\/www\.nicovideo\.jp\/watch\/([a-z]{2}\d+|\d+)/.exec(buffer.URL);
+        let match = /https?:\/\/www\.nicovideo\.jp\/watch\/([a-z]{2}\d+|\d+)/.exec(buffer.URL);
         if (match) {
           let selectedTab = gBrowser.selectedTab;
           commands.get('zenzaWatch').execute(`open ${match[1]}`);
@@ -138,6 +148,7 @@
             if (jso.ZenzaWatch && jso.ZenzaWatch.debug && jso.ZenzaWatch.debug.dialog || i > 100) {
               clearInterval(intervalId);
               jso.ZenzaWatch.debug.dialog.open(videoId);
+              // document.title = jso.ZenzaWatch.debug.dialog._videoInfo._videoDetail.title;
             }
           }, 100);
         };
