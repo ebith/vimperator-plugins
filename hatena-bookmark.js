@@ -32,7 +32,8 @@
         context.title = ['URL', 'Title (Comment)'];
         let completions = [];
         for (let bookmark of hatebu.bookmarks) {
-          completions.push([bookmark.url, `${bookmark.title} (${bookmark.comment})`]);
+          const comment = bookmark.comment.length > 0 ? ` (${bookmark.comment})` : '';
+          completions.push([bookmark.url, bookmark.title + comment]);
         }
         context.completions = completions;
       }
