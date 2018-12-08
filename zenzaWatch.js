@@ -89,7 +89,7 @@
     new Command(['executeCommand', 'exec'], 'Vimperatorのコマンドを実行する', (args) => {
       let table = {
         '%TITLE%': () => { return zw().debug.dialog._videoInfo._videoDetail.title; },
-        '%URL%': () => { return `https?://www.nicovideo.jp/watch/${zw().debug.dialog._watchId }`; },
+        '%URL%': () => { return `https://www.nicovideo.jp/watch/${zw().debug.dialog._watchId }`; },
         '%VIDEO_ID%': () => { return zw().debug.dialog._watchId; }
       };
       let arg = args.literalArg;
